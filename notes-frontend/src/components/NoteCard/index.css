@@ -1,0 +1,48 @@
+.note-card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.note-card:hover {
+    border-color: #6366f1;
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+}
+
+.note-card h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f1f5f9;
+}
+
+.note-card p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #94a3b8;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.note-delete-btn {
+    align-self: flex-end;
+    padding: 6px 14px;
+    background-color: transparent;
+    color: #f87171;
+    border: 1px solid #f87171;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.note-delete-btn:hover {
+    background-color: #f87171;
+    color: #fff;
+}

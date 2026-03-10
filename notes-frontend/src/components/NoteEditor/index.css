@@ -1,0 +1,58 @@
+.editor {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    background-color: #1e293b;
+    border-bottom: 1px solid #334155;
+}
+
+.editor input {
+    padding: 10px 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background-color: #0f172a;
+    color: #f1f5f9;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.editor input:focus {
+    border-color: #6366f1;
+}
+
+.editor textarea {
+    padding: 10px 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background-color: #0f172a;
+    color: #f1f5f9;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    min-height: 120px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.editor textarea:focus {
+    border-color: #6366f1;
+}
+
+.editor-save-btn {
+    align-self: flex-end;
+    padding: 9px 22px;
+    background-color: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.editor-save-btn:hover {
+    background-color: #4f46e5;
+}
