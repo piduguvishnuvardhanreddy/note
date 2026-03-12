@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import { NotesProvider } from "./context/NotesContext"
-import Login from "./components/Login"
+import Login from "./components/login"
 import Register from "./components/Register"
 import NotesPage from "./components/NotesPage"
 
