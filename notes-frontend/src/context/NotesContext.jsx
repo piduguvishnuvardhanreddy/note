@@ -12,11 +12,23 @@ export const NotesProvider = ({ children }) => {
     useEffect(() => {
         const loadNotes = async () => {
             const token = getToken()
-            const response = await fetch(`${API_URL}/notes`, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            const data = await response.json()
-            setNotes(Array.isArray(data) ? data : [])
+            if (!token) return
+
+            try {
+                const response = await fetch(`${API_URL}/notes`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+                
+                if (!response.ok) {
+                    console.error("Failed to load notes:", response.status)
+                    return
+                }
+
+                const data = await response.json()
+                setNotes(Array.isArray(data) ? data : [])
+            } catch (err) {
+                console.error("Error loading notes:", err)
+            }
         }
         loadNotes()
     }, [])

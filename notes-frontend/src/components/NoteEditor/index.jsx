@@ -50,6 +50,12 @@ const NoteEditor = () => {
       body: JSON.stringify({ title, content, important })
     })
 
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      alert(errorData.error || "Failed to save note")
+      return
+    }
+
     const newNote = await response.json()
 
     setTitle("")

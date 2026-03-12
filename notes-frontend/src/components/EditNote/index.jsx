@@ -49,6 +49,13 @@ const EditNote = ({ note, onClose, onSave }) => {
             body: JSON.stringify({ title, content, important })
         })
 
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}))
+            alert(errorData.error || "Failed to update note")
+            setStatus("idle")
+            return
+        }
+
         const updatedNote = await response.json()
 
         onSave(updatedNote)

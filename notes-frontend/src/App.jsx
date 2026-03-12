@@ -10,28 +10,28 @@ import ProtectedRoute from "./routes/ProtectedRoute"
 function App() {
 
   return (
-    <NotesProvider>
-      <BrowserRouter>
+    <BrowserRouter>
 
-        <Routes>
+      <Routes>
 
-          <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
-          <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register />} />
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <NotesProvider>
                 <NotesPage />
-              </ProtectedRoute>
-            }
-          />
+              </NotesProvider>
+            </ProtectedRoute>
+          }
+        />
 
-        </Routes>
+      </Routes>
 
-      </BrowserRouter>
-    </NotesProvider>
+    </BrowserRouter>
   )
 }
 
