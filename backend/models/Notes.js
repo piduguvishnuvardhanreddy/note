@@ -14,6 +14,10 @@ const noteSchema = new mongoose.Schema({
         type: String,
         default: "Inter, sans-serif"
     },
+    important: {
+        type: Boolean,
+        default: false
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

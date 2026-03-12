@@ -15,19 +15,69 @@
     box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
 }
 
-.note-card h3 {
+.note-card--important {
+    border-color: #f59e0b;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25);
+}
+
+.note-card--important:hover {
+    border-color: #fbbf24;
+    box-shadow: 0 4px 20px rgba(251, 191, 36, 0.35);
+}
+
+.note-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.note-card-header h3 {
     margin: 0;
     font-size: 1rem;
     font-weight: 600;
     color: #f1f5f9;
+    flex: 1;
 }
 
-.note-card p {
+.note-star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 2px 4px;
+    border-radius: 4px;
+    opacity: 0.35;
+    transition: opacity 0.2s, transform 0.15s;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.note-star-btn:hover {
+    opacity: 0.75;
+    transform: scale(1.2);
+}
+
+.note-star-btn--active {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.7));
+}
+
+.note-card-content {
     margin: 0;
     font-size: 0.875rem;
     color: #94a3b8;
-    white-space: pre-wrap;
     line-height: 1.5;
+    word-break: break-word;
+}
+
+.note-card-content ul {
+    padding-left: 18px;
+    margin: 4px 0;
+}
+
+.note-card-content li {
+    margin: 2px 0;
 }
 
 .note-delete-btn {
@@ -44,5 +94,27 @@
 
 .note-delete-btn:hover {
     background-color: #f87171;
+    color: #fff;
+}
+
+.note-card-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.note-edit-btn {
+    padding: 6px 14px;
+    background-color: transparent;
+    color: #6366f1;
+    border: 1px solid #6366f1;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.note-edit-btn:hover {
+    background-color: #6366f1;
     color: #fff;
 }

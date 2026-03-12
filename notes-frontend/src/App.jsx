@@ -1,5 +1,6 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
+import { NotesProvider } from "./context/NotesContext"
 import Login from "./components/Login"
 import Register from "./components/Register"
 import NotesPage from "./components/NotesPage"
@@ -9,26 +10,28 @@ import ProtectedRoute from "./routes/ProtectedRoute"
 function App() {
 
   return (
-    <BrowserRouter>
+    <NotesProvider>
+      <BrowserRouter>
 
-      <Routes>
+        <Routes>
 
-        <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
 
-        <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <NotesPage />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <NotesPage />
+              </ProtectedRoute>
+            }
+          />
 
-      </Routes>
+        </Routes>
 
-    </BrowserRouter>
+      </BrowserRouter>
+    </NotesProvider>
   )
 }
 

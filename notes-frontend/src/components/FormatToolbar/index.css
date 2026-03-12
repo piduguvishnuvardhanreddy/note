@@ -1,0 +1,41 @@
+.format-toolbar {
+    display: flex;
+    gap: 6px;
+    padding: 6px 0;
+}
+
+.fmt-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    user-select: none;
+}
+
+.fmt-btn:hover {
+    background-color: #6366f1;
+    border-color: #6366f1;
+    color: #fff;
+}
+
+.fmt-active {
+    background-color: #6366f1;
+    border-color: #6366f1;
+    color: #fff;
+}
+
+.fmt-italic {
+    font-style: italic;
+}
+
+.fmt-underline {
+    text-decoration: underline;
+}

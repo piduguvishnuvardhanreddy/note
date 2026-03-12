@@ -1,10 +1,8 @@
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 
-import { loginUser } from "../../api/authApi"
+import { API_URL } from "../../api/config"
 import { setToken } from "../../utils/auth"
-import { AuthContext } from "../../context/AuthContext"
-import Loader from "../Loader"
 
 import "./index.css"
 
@@ -12,46 +10,49 @@ const Login = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [status, setStatus] = useState("idle")
   const [error, setError] = useState("")
-
-  const { setIsAuth } = useContext(AuthContext)
+  const [loading, setLoading] = useState(false)
+  const [fieldErrors, setFieldErrors] = useState({})
 
   const navigate = useNavigate()
 
   const handleSubmit = async e => {
     e.preventDefault()
 
-    setStatus("loading")
+    const errors = {}
+    if (!email.trim()) errors.email = "Email is required"
+    if (!password.trim()) errors.password = "Password is required"
 
-    const data = await loginUser({ email, password })
-
-    if (data.token) {
-      setStatus("success")
-      setToken(data.token)
-      setIsAuth(true)
-      navigate("/")
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors)
+      return
     }
-    else {
-      setStatus("error")
-      setError(data.message)
+
+    setFieldErrors({})
+    setLoading(true)
+
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      })
+
+      const data = await response.json()
+
+      if (data.token) {
+        setToken(data.token)
+        navigate("/")
+      }
+      else {
+        setError(data.message)
+      }
     }
-  }
-
-  const renderStatus = () => {
-    switch (status) {
-
-      case "loading":
-        return <Loader />
-
-      case "success":
-        return <p className="success">Login successful!</p>
-
-      case "error":
-        return <p className="error">{error}</p>
-
-      default:
-        return null
+    catch (err) {
+      setError("Network error. Please try again.")
+    }
+    finally {
+      setLoading(false)
     }
   }
 
@@ -67,6 +68,7 @@ const Login = () => {
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
+        {fieldErrors.email && <p className="error">{fieldErrors.email}</p>}
 
         <input
           type="password"
@@ -74,10 +76,13 @@ const Login = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        {fieldErrors.password && <p className="error">{fieldErrors.password}</p>}
 
-        <button type="submit" disabled={status === "loading"}>Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
 
-        {renderStatus()}
+        {error && <p className="error">{error}</p>}
 
         <p>
           No account?

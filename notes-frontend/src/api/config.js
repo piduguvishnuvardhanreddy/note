@@ -1,2 +1,2 @@
 export const API_URL =
-"https://notesapplication-backend.onrender.com/api"
+    import.meta.env.VITE_API_URL || "https://note-dau9.onrender.com/api"

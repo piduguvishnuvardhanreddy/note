@@ -1,29 +1,55 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { registerUser } from "../../api/authApi"
+import { API_URL } from "../../api/config"
 
 import "./index.css"
 
 const Register = () => {
 
-  const [name, setName] = useState("")
+  const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const [fieldErrors, setFieldErrors] = useState({})
 
   const navigate = useNavigate()
 
   const handleRegister = async e => {
     e.preventDefault()
 
-    const data = await registerUser({ name, email, password })
+    const errors = {}
+    if (!username.trim()) errors.username = "Name is required"
+    if (!email.trim()) errors.email = "Email is required"
+    if (!password.trim()) errors.password = "Password is required"
 
-    if (data.message === "User registered") {
-      navigate("/login")
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors)
+      return
     }
-    else {
-      setError(data.message)
+
+    setFieldErrors({})
+
+    try {
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, email, password })
+      })
+
+      const data = await response.json()
+
+      if (data.message === "User registered") {
+        navigate("/login")
+      }
+      else {
+        setError(data.message)
+      }
+    }
+    catch (err) {
+      setError("Network error. Please try again.")
     }
   }
 
@@ -36,15 +62,17 @@ const Register = () => {
 
         <input
           placeholder="Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
+          value={username}
+          onChange={e => setUsername(e.target.value)}
         />
+        {fieldErrors.username && <p className="error">{fieldErrors.username}</p>}
 
         <input
           placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
+        {fieldErrors.email && <p className="error">{fieldErrors.email}</p>}
 
         <input
           type="password"
@@ -52,6 +80,7 @@ const Register = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        {fieldErrors.password && <p className="error">{fieldErrors.password}</p>}
 
         <button type="submit">Register</button>
 

@@ -1,0 +1,185 @@
+.edit-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+}
+
+.edit-modal {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.edit-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.edit-modal-header h3 {
+    margin: 0;
+    color: #f1f5f9;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.edit-close-btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.edit-close-btn:hover {
+    color: #f1f5f9;
+    background-color: #334155;
+}
+
+.edit-input {
+    padding: 10px 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background-color: #0f172a;
+    color: #f1f5f9;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.edit-input:focus {
+    border-color: #6366f1;
+}
+
+.edit-textarea {
+    padding: 10px 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background-color: #0f172a;
+    color: #f1f5f9;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    min-height: 150px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.edit-textarea:focus {
+    border-color: #6366f1;
+}
+
+.edit-content {
+    padding: 10px 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background-color: #0f172a;
+    color: #f1f5f9;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    min-height: 150px;
+    outline: none;
+    transition: border-color 0.2s;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.edit-content:focus {
+    border-color: #6366f1;
+}
+
+.edit-content:empty::before {
+    content: attr(data-placeholder);
+    color: #475569;
+    pointer-events: none;
+}
+
+.edit-content ul {
+    padding-left: 20px;
+    margin: 4px 0;
+}
+
+.edit-content li {
+    margin: 2px 0;
+}
+
+.edit-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.edit-cancel-btn {
+    padding: 9px 20px;
+    background-color: transparent;
+    color: #94a3b8;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.edit-cancel-btn:hover {
+    background-color: #334155;
+    color: #f1f5f9;
+}
+
+.edit-save-btn {
+    padding: 9px 22px;
+    background-color: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.edit-save-btn:hover {
+    background-color: #4f46e5;
+}
+
+.edit-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.edit-field-error {
+    margin: -6px 0 0 0;
+    font-size: 0.78rem;
+    color: #f87171;
+}
+
+.edit-important-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.edit-important-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #f59e0b;
+    cursor: pointer;
+}

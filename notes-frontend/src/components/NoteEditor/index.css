@@ -40,6 +40,40 @@
     border-color: #6366f1;
 }
 
+.editor-content {
+    padding: 10px 14px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background-color: #0f172a;
+    color: #f1f5f9;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    min-height: 120px;
+    outline: none;
+    transition: border-color 0.2s;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.editor-content:focus {
+    border-color: #6366f1;
+}
+
+.editor-content:empty::before {
+    content: attr(data-placeholder);
+    color: #475569;
+    pointer-events: none;
+}
+
+.editor-content ul {
+    padding-left: 20px;
+    margin: 4px 0;
+}
+
+.editor-content li {
+    margin: 2px 0;
+}
+
 .editor-save-btn {
     align-self: flex-end;
     padding: 9px 22px;
@@ -55,4 +89,27 @@
 
 .editor-save-btn:hover {
     background-color: #4f46e5;
+}
+
+.editor-field-error {
+    margin: -6px 0 0 0;
+    font-size: 0.78rem;
+    color: #f87171;
+}
+
+.editor-important-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.editor-important-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #f59e0b;
+    cursor: pointer;
 }

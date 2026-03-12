@@ -2,7 +2,7 @@ const Note = require("../models/Notes")
 
 exports.createNote = async (req, res) => {
     try {
-        const { title, content, font } = req.body
+        const { title, content, font, important } = req.body
         if (!title || !content) {
             return res.status(400).json({ error: "Title and Content are required" })
         }
@@ -10,6 +10,7 @@ exports.createNote = async (req, res) => {
             title,
             content,
             font,
+            important: important === true,
             user: req.user.userId
         })
         res.status(201).json(note)
@@ -41,6 +42,7 @@ exports.updateNote = async (req, res) => {
         note.title = req.body.title || note.title
         note.content = req.body.content || note.content
         if (req.body.font) note.font = req.body.font
+        if (typeof req.body.important === "boolean") note.important = req.body.important
         const updatedNote = await note.save()
         res.json(updatedNote)
     }

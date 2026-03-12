@@ -1,42 +1,87 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
+
+import { useNotes } from "../../context/NotesContext"
 
 import Navbar from "../Navbar"
-import SearchBar from "../SearchBar"
 import NoteEditor from "../NoteEditor"
-import NotesList from "../NotesList"
-
-import { fetchNotes } from "../../api/notesApi"
+import NoteCard from "../NoteCard"
+import EditNote from "../EditNote"
 
 import "./index.css"
 
 const NotesPage = () => {
 
-  const [notes, setNotes] = useState([])
+  const { notes, deleteNote, saveNote, toggleImportant } = useNotes()
 
-  const loadNotes = async () => {
+  const [query, setQuery] = useState("")
+  const [editingNote, setEditingNote] = useState(null)
+  const [showImportant, setShowImportant] = useState(false)
 
-    const data = await fetchNotes()
-
-    setNotes(data)
-  }
-
-  useEffect(() => {
-    loadNotes()
-  }, [])
+  const filtered = notes
+    .filter(note => showImportant ? note.important === true : true)
+    .filter(note =>
+      note.title.toLowerCase().includes(query.toLowerCase()) ||
+      note.content.toLowerCase().includes(query.toLowerCase())
+    )
 
   return (
     <div className="notes-page">
 
       <Navbar />
 
-      <SearchBar setNotes={setNotes} />
+      <div className="notes-filter-tabs">
+        <button
+          className={`filter-tab ${!showImportant ? "filter-tab--active" : ""}`}
+          onClick={() => setShowImportant(false)}
+        >
+          All Notes
+        </button>
+        <button
+          className={`filter-tab ${showImportant ? "filter-tab--active" : ""}`}
+          onClick={() => setShowImportant(true)}
+        >
+          ⭐ Important
+        </button>
+      </div>
 
-      <NoteEditor refresh={loadNotes} />
+      <input
+        className="notes-search"
+        placeholder="Search notes..."
+        value={query}
+        onChange={e => setQuery(e.target.value)}
+      />
 
-      <NotesList notes={notes} refresh={loadNotes} />
+      {!showImportant && <NoteEditor />}
+
+      <div className="notes-list">
+        {filtered.length === 0 ? (
+          <p className="notes-empty">
+            {showImportant ? "No important notes yet. Star a note to pin it here!" : "No notes found."}
+          </p>
+        ) : (
+          filtered.map(note => (
+            <NoteCard
+              key={note._id}
+              note={note}
+              onEdit={setEditingNote}
+              onDelete={deleteNote}
+              onToggleImportant={toggleImportant}
+            />
+          ))
+        )}
+      </div>
+
+      {editingNote && (
+        <EditNote
+          note={editingNote}
+          onClose={() => setEditingNote(null)}
+          onSave={note => { saveNote(note); setEditingNote(null) }}
+        />
+      )}
 
     </div>
   )
 }
 
 export default NotesPage
+
